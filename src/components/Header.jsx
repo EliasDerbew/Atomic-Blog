@@ -1,9 +1,9 @@
-export default function Header({
-  searchQuery,
-  setSearchQuery,
-  posts,
-  onHandleClear,
-}) {
+import { useContext } from "react";
+import { PostContext } from "../App";
+
+export default function Header() {
+  // consuming the context value
+  const { onHandleClear } = useContext(PostContext);
   return (
     <header className="flex justify-between mb-10">
       <h1 className="font-title text-4xl">
@@ -11,11 +11,8 @@ export default function Header({
       </h1>
 
       <div className="flex gap-4 items-center font-display">
-        <Result posts={posts} />
-        <SearchPosts
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
-        />
+        <Result />
+        <SearchPosts />
         <button
           className="bg-orange-400 text-white p-2 rounded-lg hover:bg-blue-700 active:bg-blue-700 cursor-pointer"
           onClick={() => onHandleClear()}
@@ -27,7 +24,8 @@ export default function Header({
   );
 }
 
-function Result({ posts }) {
+function Result() {
+  const { posts } = useContext(PostContext);
   return (
     <div>
       <p>{posts.length} atomic blog has been found</p>
@@ -35,7 +33,10 @@ function Result({ posts }) {
   );
 }
 
-function SearchPosts({ searchQuery, setSearchQuery }) {
+function SearchPosts() {
+
+  //consuming context
+  const { searchQuery, setSearchQuery } = useContext(PostContext);
   return (
     <div>
       <input

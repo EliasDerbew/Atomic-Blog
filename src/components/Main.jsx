@@ -1,15 +1,17 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { PostContext } from "../App";
 
-export default function Main({ posts, onAddPosts }) {
+export default function Main() {
   return (
     <main>
-      <AddFormPosts onAddPosts={onAddPosts} />
-      <Posts posts={posts} />
+      <AddFormPosts />
+      <Posts />
     </main>
   );
 }
 
-function AddFormPosts({ onAddPosts }) {
+function AddFormPosts() {
+  const { onAddPosts } = useContext(PostContext);
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
 
@@ -48,26 +50,29 @@ function AddFormPosts({ onAddPosts }) {
   );
 }
 
-function Posts({ posts }) {
+function Posts() {
   return (
     <div>
-      <List posts={posts} />
+      <List />
     </div>
   );
 }
 
-function List({ posts }) {
+function List() {
+  const { posts } = useContext(PostContext);
   return (
     <ul className="grid grid-cols-4 gap-10 mt-10">
-      {posts.map((post, i) => (
-        <li
-          key={i}
-          className="border-1 border-orange-100 p-2 rounded-lg cursor-pointer hover:bg-orange-50"
-        >
-          <h2 className="font-bold text-xl mb-2">{post.title}</h2>
-          <p className="font-display">{post.body}</p>
-        </li>
-      )).reverse()}
+      {posts
+        .map((post, i) => (
+          <li
+            key={i}
+            className="border-1 border-orange-100 p-2 rounded-lg cursor-pointer hover:bg-orange-50"
+          >
+            <h2 className="font-bold text-xl mb-2">{post.title}</h2>
+            <p className="font-display">{post.body}</p>
+          </li>
+        ))
+        .reverse()}
     </ul>
   );
 }
