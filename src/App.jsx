@@ -21,6 +21,7 @@ export default function App() {
   const [searchQuery, setSearchQuery] = useState("");
   const [isDarkMode, setIsDarkMode] = useState(false);
 
+  // search functionality
   const searchedPosts =
     searchQuery.length > 0
       ? posts.filter((post) =>
@@ -30,6 +31,15 @@ export default function App() {
         )
       : posts;
 
+  // Adding new blog post
+  function handleAddPosts(post) {
+    setPosts((posts) => [...posts, post]);
+  }
+
+  //clear all the blog post
+  function handleClear() {
+    setPosts([]);
+  }
   useEffect(
     function () {
       document.documentElement.classList.toggle("fake-dark-mode");
@@ -38,20 +48,24 @@ export default function App() {
   );
 
   return (
-    <section className="flex flex-col p-20 pb-5">
+    <section className="flex flex-col p-20 pb-5 min-h-[100vh] justify-between">
       <button
         className="bg-blue-400 p-2 rounded-lg cursor-pointer btn-fake-dark-mode"
         onClick={() => setIsDarkMode((isDarkMode) => !isDarkMode)}
       >
         {isDarkMode ? "☀️" : "🌙"}
       </button>
-      <Header
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-        posts={searchedPosts}
-      />
-      <Main posts={searchedPosts} />
-      <Archive />
+
+      <div>
+        <Header
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          posts={searchedPosts}
+          onHandleClear={handleClear}
+        />
+        <Main posts={searchedPosts} onAddPosts={handleAddPosts} />
+        <Archive onAddPosts={handleAddPosts} />
+      </div>
       <Footer />
     </section>
   );

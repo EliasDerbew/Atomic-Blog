@@ -8,9 +8,9 @@ function createRandomPost() {
   };
 }
 
-export default function Archive() {
+export default function Archive({ onAddPosts }) {
   const [posts] = useState(() =>
-    Array.from({ length: 200 }, () => createRandomPost())
+    Array.from({ length: 100 }, () => createRandomPost())
   );
   const [showArchive, setShowArchive] = useState(false);
   return (
@@ -37,7 +37,10 @@ export default function Archive() {
                   <strong>{post.title}</strong> {post.body}
                 </p>
 
-                <button className="bg-orange-300 rounded-lg pl-4 pr-4 cursor-pointer hover:bg-orange-400 font-display">
+                <button
+                  className="bg-orange-300 rounded-lg pl-4 pr-4 cursor-pointer hover:bg-orange-400 font-display"
+                  onClick={() => onAddPosts(post)}
+                >
                   Add as new post
                 </button>
               </li>

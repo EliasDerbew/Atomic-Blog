@@ -1,21 +1,32 @@
 import { useState } from "react";
 
-export default function Main({ posts }) {
+export default function Main({ posts, onAddPosts }) {
   return (
     <main>
-      <AddFormPosts />
+      <AddFormPosts onAddPosts={onAddPosts} />
       <Posts posts={posts} />
     </main>
   );
 }
 
-function AddFormPosts() {
+function AddFormPosts({ onAddPosts }) {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
 
+  const handleSubmite = function (e) {
+    e.preventDefault();
+    if (!title || !body) return;
+    onAddPosts({ title, body });
+    setTitle("");
+    setBody("");
+  };
+
   return (
     <div>
-      <form className="flex gap-4 w-full bg-orange-50 p-4">
+      <form
+        className="flex gap-4 w-full bg-orange-50 p-4"
+        onSubmit={handleSubmite}
+      >
         <input
           type="text"
           placeholder="post title ..."
@@ -56,7 +67,7 @@ function List({ posts }) {
           <h2 className="font-bold text-xl mb-2">{post.title}</h2>
           <p className="font-display">{post.body}</p>
         </li>
-      ))}
+      )).reverse()}
     </ul>
   );
 }
