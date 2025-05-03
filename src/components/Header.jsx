@@ -1,17 +1,17 @@
-export default function Header({ searchQuery, setSearchQuery }) {
+export default function Header({ searchQuery, setSearchQuery, posts }) {
   return (
-    <header className="flex justify-between p-10">
+    <header className="flex justify-between mb-10">
       <h1 className="font-title text-4xl">
         <span>⚛️</span> The Atomic Blog
       </h1>
 
       <div className="flex gap-4 items-center font-display">
-        <Result />
+        <Result posts = {posts}/>
         <SearchPosts
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
         />
-        <button className="bg-gray-700 text-white p-2 rounded-lg hover:bg-blue-700 active:bg-blue-700 cursor-pointer">
+        <button className="bg-orange-400 text-white p-2 rounded-lg hover:bg-blue-700 active:bg-blue-700 cursor-pointer">
           Clear Posts
         </button>
       </div>
@@ -19,10 +19,10 @@ export default function Header({ searchQuery, setSearchQuery }) {
   );
 }
 
-function Result() {
+function Result({posts}) {
   return (
     <div>
-      <p>X atomic blog has been found</p>
+      <p>{posts.length} atomic blog has been found</p>
     </div>
   );
 }
