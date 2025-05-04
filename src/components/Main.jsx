@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { PostContext } from "../App";
+import { PostContext } from "../PostProvider";
 
 export default function Main() {
   return (

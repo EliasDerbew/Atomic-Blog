@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { PostContext } from "../App";
+import { PostContext } from "../PostProvider";
 
 export default function Header() {
   // consuming the context value
@@ -34,7 +34,6 @@ function Result() {
 }
 
 function SearchPosts() {
-
   //consuming context
   const { searchQuery, setSearchQuery } = useContext(PostContext);
   return (

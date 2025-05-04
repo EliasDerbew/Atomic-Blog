@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 import { faker } from "@faker-js/faker";
-import { PostContext } from "../App";
+import { PostContext } from "../PostProvider";
 
 function createRandomPost() {
   return {
